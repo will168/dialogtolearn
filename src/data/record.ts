@@ -1,31 +1,44 @@
 import * as Immutable from "immutable";
 
-export interface EmailContent {
-    subject: string;
-    body: string;
-}
-export interface Email {
-    date: string;
-    message: [EmailContent];
 
-}
-export interface Student {
-    studentName: string;
-    emails: [Email]
+export interface ITable {
+    id?:         number;
+    student?:    IStudent;
+    volunteers?: IVolunteer[];
 }
 
-export interface Volunteer {
-    volName: string;
-    emails: [Email]
+export interface IStudent {
+    studentName?: string;
+    emails?:      { [key: string]: IEmail[] };
+}
+
+export interface IEmail {
+    subject?: string;
+    body?:    string;
+}
+
+export interface IVolunteer {
+    volName?: string;
+    emails?:  { [key: string]: IEmail[] };
 }
 
 
-export interface FatRow {
-    student: Student;
-    volunteers: [Volunteer]
+const TableRecord = Immutable.Record({
+    id: undefined,
+    student: undefined,
+    volunteers: undefined
+});
+
+export class Table extends TableRecord {}
+
+
+export function convertTable(iTable: ITable): Table {
+    return new Table(iTable);
 }
 
-export interface Table {
-    columnNames: [string];
-    fatRows: [FatRow];
+export function convertTables(iTables: Array<ITable>): Immutable.List<Table> {
+    const tables: Array<Table> = iTables.map((iTable: ITable) => convertTable(iTable));
+    return Immutable.List<Table>(tables);
 }
+
+

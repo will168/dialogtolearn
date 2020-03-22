@@ -1,16 +1,15 @@
 import * as Immutable from "immutable";
 import { connect } from "react-redux";
 import * as SheetActions from "../actions/actions";
+import {Table} from "../data/record";
+
+
 
 import App from "./app";
 
 interface AppState {
-    message: string;
-    showMessage: any;
-    date: any;
-    from: any;
-    to: any;
-    subject: any
+    tables: Immutable.List<Table>;
+
 }
 
 const mapStateToProps = (state: AppState) => state;
