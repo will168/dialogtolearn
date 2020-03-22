@@ -1,6 +1,8 @@
-import React from "react";
+import * as React from "react";
 import {
-    TextareaAutosize,
+    useState
+} from "react";
+import {
     Button,
     ButtonGroup,
     Container, TextField
@@ -8,6 +10,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import {grey} from "@material-ui/core/colors";
 import Typography from '@material-ui/core/Typography';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 const useStyles = makeStyles({
     div: {
@@ -22,9 +25,21 @@ const useStyles = makeStyles({
     }
 });
 
-const MonitorContainer = () => {
+interface MonitorProps {
+    message: string;
+    subject: string;
+    from: string;
+    to: string;
+    date: string;
+
+}
 const classes = useStyles();
-    return (
+const MonitorContainer: React.FC<MonitorProps> =
+
+    ({
+         message
+     , subject, from, to, date}) => (
+
         <div className={classes.div}>
             <Container  >
                 <br/>
@@ -37,18 +52,20 @@ const classes = useStyles();
                 <Typography variant={"caption"}>
                     Email Row Key: 527
                     <br/>
-                    Date: 2018-11-27
+                    Date: {date}
                     <br/>
-                    From: Alex Rodriguez &lt;alex.rodriguez@alphapublicschools.org&gt;
+                    From: {from}
                     <br/>
-                    To: x@dialogtolearn.org
+                    To: {to}
                     <br/> <br/>
                     <TextField label={"Subject"} size={"small"}
-                               defaultValue="RE: Dialog to Learn" variant={"outlined"} />
+                               defaultValue={subject} variant={"outlined"} />
                 </Typography>
 
                 <br/><br/>
-                <TextareaAutosize variant={"outlined"} style={{width: 300+'px'}} aria-label="minimum height" rowsMin={10} placeholder="Email body" />
+                <TextareaAutosize  style={{width: 300+'px'}}
+                                  rowsMin={10} placeholder="Email body"
+                                  defaultValue = {message}  />
                 <br/>
                 <ButtonGroup className={classes.ButtonGroup}>
                     <Button variant={"contained"}>Accept Edits</Button>
@@ -57,7 +74,5 @@ const classes = useStyles();
                 </ButtonGroup>
             </Container>
         </div>
-    )
-};
-
+    );
 export default MonitorContainer;

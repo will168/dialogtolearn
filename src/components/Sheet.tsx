@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import * as React from "react";
 import { Table,
     TableCell,
     TableBody,
@@ -9,6 +9,8 @@ import { Table,
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {green, grey, red, yellow} from "@material-ui/core/colors";
+
+
 const useStyles = makeStyles({
 
     table: {
@@ -43,24 +45,39 @@ export const records =
         "Tom":   ["Jeff", "Bob", "Mike"]
     };
 
-// console.log(records)
-// console.log(Object.values(records));
+interface SheetProps {
+    records: any;
+    message: string;
+    showMessage: any;
+}
 
-const Sheet = (props) => {
-    const records = props.records;
-    console.log("values " + Object.values(records))
-    console.log( "entries" + Object.entries(records));
+const Sheet: React.FC<SheetProps> = (
+    { records, showMessage}) => {
+
     let entries = Object.entries(records);
-    let vals = Object.values(records);
-    for (let i = 0; i < entries.length; i++) {
-        console.log(entries[i])
-    }
-
-
-    function fillemail(e) {
-        e.preventDefault();
-        alert('clicked');
-    }
+    // let data = props.table;
+    // console.log( data["default"]["Table"].fatRows[0]["student"]);
+    // for(fatRow in data["fatRowArray"]){
+    //     studentName = fatRow.student.studentName;
+    //
+    //     //now do whatever you need with the string studentName
+    //
+    //     volunteerArray = fatRow.volunteer;
+    //     for(vName in volunteerArray){
+    //
+    //         //now do whatever you need with the string vName
+    //
+    //     }
+    // }
+    // console.log(typeof (props.table))
+    // console.log(props.table["default"]["Table"])
+    // function handleClick(e) {
+    //     // e.preventDefault();
+    //     let m = message
+    //     alert('clicked');
+    //         // return e;
+    //
+    // }
 
 
 
@@ -77,14 +94,24 @@ const Sheet = (props) => {
     //     }
     // })();
 
+
+    // useEffect(() => {
+    //     // Update the document title using the browser API
+    //     // document.title = `You clicked ${count} times`;
+    //     fillemail('This is test email body');
+    //
+    // });
+
+
     const classes = useStyles();
-    // const [records, chang] = useState()
+    // const [message] = useState({Table: props.table["default"]["Table"]})
+    // console.log(message)
     return (
         // props.records.forEach((key, value) =>
 
         <TableContainer >
             <Table className={classes.table}>
-                <TableRow align="left">
+                <TableRow >
                     <TableCell>
                         Dates
                     </TableCell>
@@ -132,28 +159,28 @@ const Sheet = (props) => {
                                 <>
                                     <TableRow>
                                         <TableCell className={classes.volunteers}>{key}</TableCell>
-                                        <TableCell><Button onClick={fillemail} variant="contained" className={classes.new} >  </Button></TableCell>
-                                        <TableCell><Button onClick={fillemail} variant="contained" className={classes.hold}>  </Button></TableCell>
-                                        <TableCell><Button onClick={fillemail} variant="contained" className={classes.new}>  </Button></TableCell>
-                                        <TableCell><Button onClick={fillemail} variant="contained" className={classes.hold}>  </Button></TableCell>
-                                        <TableCell><Button onClick={fillemail} variant="contained" >  </Button></TableCell>
-                                        <TableCell><Button onClick={fillemail} variant="contained" >  </Button></TableCell>
+                                        <TableCell><Button  variant="contained" className={classes.new} >  </Button></TableCell>
+                                        <TableCell><Button  variant="contained" className={classes.hold}>  </Button></TableCell>
+                                        <TableCell><Button  variant="contained" className={classes.new}>  </Button></TableCell>
+                                        <TableCell><Button  variant="contained" className={classes.hold}>  </Button></TableCell>
+                                        <TableCell><Button  variant="contained" >  </Button></TableCell>
+                                        <TableCell><Button  variant="contained" >  </Button></TableCell>
                                     </TableRow>
 
-                                    {value.map((val) =>
-                                        <TableRow>
-                                            <TableCell className={classes.students}>
-                                                {val}
-                                            </TableCell>
-                                            <TableCell><Button onClick={fillemail} variant="contained" className={classes.hold}>  </Button></TableCell>
-                                            <TableCell><Button onClick={fillemail} variant="contained" >  </Button></TableCell>
-                                            <TableCell><Button onClick={fillemail} variant="contained" className={classes.new}>  </Button></TableCell>
-                                            <TableCell><Button onClick={fillemail} variant="contained" >  </Button></TableCell>
-                                            <TableCell><Button onClick={fillemail} variant="contained" >  </Button></TableCell>
-                                            <TableCell><Button onClick={fillemail} variant="contained" >  </Button></TableCell>
-                                        </TableRow>
-                                    )
-                                    }
+                                    {/*{value.map((val) =>*/}
+                                    {/*    <TableRow>*/}
+                                    {/*        <TableCell className={classes.students}>*/}
+                                    {/*            {val}*/}
+                                    {/*        </TableCell>*/}
+                                    {/*        <TableCell><Button  variant="contained" className={classes.hold}>  </Button></TableCell>*/}
+                                    {/*        <TableCell><Button  variant="contained" >  </Button></TableCell>*/}
+                                    {/*        <TableCell><Button  variant="contained" className={classes.new}>  </Button></TableCell>*/}
+                                    {/*        <TableCell><Button  variant="contained" >  </Button></TableCell>*/}
+                                    {/*        <TableCell><Button  variant="contained" >  </Button></TableCell>*/}
+                                    {/*        <TableCell><Button  variant="contained" >  </Button></TableCell>*/}
+                                    {/*    </TableRow>*/}
+                                    {/*)*/}
+                                    {/*}*/}
                                     {/*{entry.map((val)=>*/}
                                     {/*    <TableRow>*/}
                                     {/*    <TableCell>{val}</TableCell>*/}
@@ -168,19 +195,19 @@ const Sheet = (props) => {
                     {/*// <TableRow>*/}
                     {/*//     <TableCell>{entry[0]}</TableCell>*/}
                     {/*//     <TableCell>*/}
-                    {/*//         <Button onClick={fillemail} variant="contained" >  </Button>*/}
+                    {/*//         <Button  variant="contained" >  </Button>*/}
                     {/*//*/}
                     {/*//     </TableCell>*/}
                     {/*//     <TableCell>*/}
-                    {/*//         <Button onClick={fillemail} variant="contained" >  </Button>*/}
+                    {/*//         <Button  variant="contained" >  </Button>*/}
                     {/*//*/}
                     {/*//     </TableCell>*/}
                     {/*//     <TableCell>*/}
-                    {/*//         <Button onClick={fillemail} variant="contained" >  </Button>*/}
+                    {/*//         <Button  variant="contained" >  </Button>*/}
                     {/*//*/}
                     {/*//     </TableCell>*/}
                     {/*//     <TableCell>*/}
-                    {/*//         <Button onClick={fillemail} variant="contained" >  </Button>*/}
+                    {/*//         <Button  variant="contained" >  </Button>*/}
                     {/*//*/}
                     {/*//     </TableCell>*/}
                     {/*// </TableRow>*/}
@@ -190,15 +217,15 @@ const Sheet = (props) => {
                     {/*            {entry[1].map((en) => <TableRow>*/}
                     {/*                    <TableCell className={classes.volunteers}>{en}</TableCell>*/}
                     {/*                    <TableCell>*/}
-                    {/*                        <Button onClick={fillemail} variant="contained" >  </Button>*/}
+                    {/*                        <Button  variant="contained" >  </Button>*/}
 
                     {/*                    </TableCell>*/}
                     {/*                    <TableCell>*/}
-                    {/*                        <Button onClick={fillemail} variant="contained" >  </Button>*/}
+                    {/*                        <Button  variant="contained" >  </Button>*/}
 
                     {/*                    </TableCell>*/}
                     {/*                    <TableCell>*/}
-                    {/*                        <Button onClick={fillemail} variant="contained" >  </Button>*/}
+                    {/*                        <Button  variant="contained" >  </Button>*/}
 
                     {/*                    </TableCell>*/}
                     {/*                </TableRow>)*/}
