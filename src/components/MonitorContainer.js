@@ -8,15 +8,12 @@ import {
     TextareaAutosize
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-
-import {grey} from "@material-ui/core/colors";
 import Typography from '@material-ui/core/Typography';
 
 
 const useStyles = makeStyles({
     div: {
-        float: "right",
-        background: grey[200]
+        float: "right"
     },
     ButtonGroup: {
         '& Button': {
