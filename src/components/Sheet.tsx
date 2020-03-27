@@ -42,20 +42,17 @@ const useStyles = makeStyles({
 
 interface SheetProps {
     records: any;
-    showRecord: any
 }
 const Sheet: React.FC<SheetProps> = ({
-    records, showRecord}) => {
+    records}) => {
     const sheetRecords = records.records;
     const colNames = records.columnNames;
-    for (let i = 0; i < sheetRecords.length; i++) {
+   /* for (let i = 0; i < sheetRecords.length; i++) {
         console.log("-" + sheetRecords[i].student["studentName"]);
         for (let j = 0; j < sheetRecords[i].volunteers.length; j++) {
             console.log("-->" + sheetRecords[i].volunteers[j]["volName"])
         }
-    }
-
-    // console.log(sheetRecords)
+    }*/
     const classes = useStyles();
     return (
         <TableContainer>
@@ -69,14 +66,7 @@ const Sheet: React.FC<SheetProps> = ({
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/*{messages.messages.map(message => {
-        return <Cell message={message} />;
-      })}*/}
                     {sheetRecords.map((item:any)=> {
-                        // @ts-ignore
-
-                        // @ts-ignore
-                        // @ts-ignore
                         return (
                             <>
                             <TableRow>
@@ -84,15 +74,22 @@ const Sheet: React.FC<SheetProps> = ({
                                     {item.student.studentName}
                                 </TableCell>
                                 {
-                                    Object.entries(item.student.emails).map(
-                                        ([key, value]) =>
+                                    Object.values(item.student.emails).map(
+                                        (value: any)=> {
 
-                                        <>
+                                        return(<>
+                                            <TableCell>
 
-                                            <TableCell><Cell message={value}/></TableCell>
+                                                {Array.from(value).length>0?
+                                                    <Cell message={value}/>:''}
+                                            </TableCell>
 
-                                        </>)
+                                        </>);
+                                        })
                                 }
+
+
+
                             </TableRow>
                         {item.volunteers.map((vol:any)=>{
                             return (
@@ -101,12 +98,17 @@ const Sheet: React.FC<SheetProps> = ({
                                         {vol.volName}
                                     </TableCell>
                                     {
-                                        Object.entries(vol.emails).map(
-                                            ([key, value]) =>
+                                        Object.values(vol.emails).map(
+                                            (value:any) =>
 
                                                 <>
 
-                                                    <TableCell><Cell message={value}/></TableCell>
+                                                    <TableCell>
+
+                                                        {Array.from(value).length>0?
+                                                            <Cell message={value}/>:''}
+
+                                                    </TableCell>
 
                                                 </>)
                                     }
