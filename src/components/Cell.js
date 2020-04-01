@@ -1,22 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
-import { showMessage } from "../actions/messageActions";
+import {showMessage, showRecord} from "../actions/messageActions";
 import Button from "@material-ui/core/Button";
-const Cell = ({ message, showMessage }) => {
+import InfoCard from "./InfoCard";
 
+const Cell = ({ message, record, showRecord, showMessage }) => {
+  const [hovered, setHovered] = useState(false);
+  const toggleHover = () => setHovered(!hovered);
   return (
     <div>
-      <Button variant="contained"  onClick={() => showMessage(message)}>{message.subject}</Button>
+      <Button variant="contained"
+              onMouseOver={() => showRecord(record)}
+              onMouseEnter={toggleHover}
+              onMouseLeave={toggleHover}
+              onClick={() => showMessage(message)}
+      >
+      </Button>
+      {hovered && (
+          <InfoCard style={"display:block"} records={record}/>
+      )}
     </div>
   );
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    showMessage: message => {
-      dispatch(showMessage(message));
+    showRecord: (record) => (dispatch(showRecord(record))),
+    showMessage: (message) => (dispatch(showMessage(message)))
     }
-  };
 };
 
 export default connect(

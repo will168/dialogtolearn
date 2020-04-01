@@ -135,18 +135,39 @@ const initialState = {
             }
           ]
     }],
-  record:{}
+  record:{},
+  message:{}
 };
 
 const messagesReducer = (state = initialState, action) => {
-    if (action.type === "SHOW_MESSAGE") {
-        return {
-            ...state,
-            record: action.payload
-        };
-    } else {
-        return state;
+
+    switch (action.type) {
+        case "SHOW_RECORD":
+            return {...state,
+                record: action.payload
+            };
+        case "SHOW_MESSAGE":
+            return {...state,
+                message: action.payload
+            };
+        default:
+            return state;
+
     }
+    // if (action.type === "SHOW_MESSAGE") {
+    //     return {
+    //         ...state,
+    //         record: action.payload
+    //     };
+    // } else if (action.type==="SHOW_RECORD") {
+    //     return {
+    //         ...state,
+    //         record: action.payload
+    //     }
+    // }
+    // else {
+    //     return state;
+    // }
 };
 
 export default messagesReducer;

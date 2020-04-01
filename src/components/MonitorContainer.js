@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 });
 const MonitorContainer = ({ records }) => {
     const classes = useStyles();
-    const thisRecord = records.record;
+    const thisRecord = records.message;
     // const records = messages.records;
     // for (let i = 0; i < records.length; i++) {
     //     console.log("-" + records[i].student["studentName"]);

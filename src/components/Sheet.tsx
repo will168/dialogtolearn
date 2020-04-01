@@ -81,7 +81,7 @@ const Sheet: React.FC<SheetProps> = ({
                                             <TableCell>
 
                                                 {Array.from(value).length>0?
-                                                    <Cell message={value}/>:''}
+                                                    <Cell record={value} message={value}/>:''}
                                             </TableCell>
 
                                         </>);
@@ -106,7 +106,7 @@ const Sheet: React.FC<SheetProps> = ({
                                                     <TableCell>
 
                                                         {Array.from(value).length>0?
-                                                            <Cell message={value}/>:''}
+                                                            <Cell record={value} message={value}/>:''}
 
                                                     </TableCell>
 
