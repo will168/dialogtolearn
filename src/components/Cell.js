@@ -9,10 +9,6 @@ const useStyles = makeStyles({
 
     div: {
         position: "absolute",
-
-    },
-    infoCard: {
-        display: "none",
     },
     btn: {
         background: ({statusColor})=> statusColor,
@@ -20,11 +16,6 @@ const useStyles = makeStyles({
         minHeight: 25 + 'px',
         maxHeight: 25 + 'px',
         maxWidth: 25 + 'px',
-        '&hover': {
-            infoCard: {
-                position: "relative",
-            }
-        }
     },
 });
 
@@ -44,7 +35,7 @@ const Cell = ({ message, record, showRecord, showMessage, statusColor }) => {
       >
       </Button>
       {hovered && (
-          <InfoCard className={classes.infoCard} records={record}/>
+          <InfoCard records={record}/>
       )}
     </div>
   );

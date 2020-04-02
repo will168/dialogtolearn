@@ -12,7 +12,9 @@ const useStyles = makeStyles({
         height: '100px',
         marginLeft: '50px',
         padding: '25px 25px 25px 25px',
-        opacity: 1
+        opacity: 1,
+        position: 'relative',
+        zIndex: 1500
     }, div: {
         marginLeft: '10px'
     }
@@ -27,6 +29,7 @@ const InfoCard:React.FC<InfoCardProps> = ({records}) => {
     const thisRecord = records.record;
     const classes = useStyles();
     return (
+
         <Card className={classes.Card}>
             <div className={classes.div}>
             <p>{thisRecord.length>0 ? thisRecord[0].subject : ''}</p>
@@ -34,6 +37,7 @@ const InfoCard:React.FC<InfoCardProps> = ({records}) => {
             <p>{thisRecord.length>0 ? thisRecord[0].body : ''}</p>
             </div>
         </Card>
+
     )
 };
 
