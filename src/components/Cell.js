@@ -4,42 +4,36 @@ import {showMessage, showRecord} from "../actions/messageActions";
 import Button from "@material-ui/core/Button";
 import InfoCard from "./InfoCard";
 import {makeStyles} from "@material-ui/core/styles";
-import {grey} from "@material-ui/core/colors";
-
 
 const useStyles = makeStyles({
+
     div: {
-        position: "absolute"
+        position: "absolute",
+
     },
     infoCard: {
-        background: grey[200],
-        color: grey[100],
-        marginLeft: 400 + 'px',
         display: "none",
     },
     btn: {
+        background: ({statusColor})=> statusColor,
+        minWidth: 25 + 'px',
+        minHeight: 25 + 'px',
+        maxHeight: 25 + 'px',
+        maxWidth: 25 + 'px',
         '&hover': {
             infoCard: {
-                opacity: 1,
-                background: grey[200],
-                color: grey[100],
-                marginLeft: 400 + 'px',
-                // display: "block",
                 position: "relative",
-                zIndex: -1
             }
         }
     },
+});
 
-
-    // Button:hover .overlay {
-    //     display: "block"
-    // }
-})
-const Cell = ({ message, record, showRecord, showMessage }) => {
+const Cell = ({ message, record, showRecord, showMessage, statusColor }) => {
   const [hovered, setHovered] = useState(false);
   const toggleHover = () => setHovered(!hovered);
-  const classes = useStyles();
+  const classes = useStyles({
+      statusColor
+  });
   return (
     <div className={classes.div}>
       <Button className={classes.btn}  variant="contained"

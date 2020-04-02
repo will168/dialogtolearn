@@ -7,23 +7,21 @@ import { Table,
     TableRow
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import {green, grey, red, yellow} from "@material-ui/core/colors";
+import {green, grey, red, } from "@material-ui/core/colors";
 import {connect} from "react-redux";
 import Cell from "./Cell";
 
 
 const useStyles = makeStyles({
 
-    table: {
-        background: grey[200],
-        '& Button': {
-            minWidth: 25 + 'px',
-            minHeight: 25 + 'px',
-            maxHeight: 25 + 'px',
-            maxWidth: 25 + 'px',
-            marginRight: 10 + 'px',
-            marginBottom: 10 + 'px'
-        },
+    volRow: {
+        background: grey[100]
+    },
+    headRow: {
+        background: grey[400]
+    },
+    tableCell: {
+        paddingBottom: '40px'
     },
     volunteers: {
         color: red[200]
@@ -31,12 +29,7 @@ const useStyles = makeStyles({
     students: {
         color: green[300]
     },
-    new: {
-        color: green[200]
-    },
-    hold: {
-        color: yellow[200]
-    },
+
 
 });
 
@@ -47,18 +40,13 @@ const Sheet: React.FC<SheetProps> = ({
     records}) => {
     const sheetRecords = records.records;
     const colNames = records.columnNames;
-   /* for (let i = 0; i < sheetRecords.length; i++) {
-        console.log("-" + sheetRecords[i].student["studentName"]);
-        for (let j = 0; j < sheetRecords[i].volunteers.length; j++) {
-            console.log("-->" + sheetRecords[i].volunteers[j]["volName"])
-        }
-    }*/
     const classes = useStyles();
+
     return (
         <TableContainer>
-            <Table className={classes.table}>
+            <Table >
                 <TableHead>
-                <TableRow>
+                <TableRow className={classes.headRow}>
                 <TableCell>Dates</TableCell>
                     {colNames.map((colName: any) => {
                         return (<TableCell>{colName}</TableCell>)
@@ -76,24 +64,26 @@ const Sheet: React.FC<SheetProps> = ({
                                 {
                                     Object.values(item.student.emails).map(
                                         (value: any)=> {
-
                                         return(<>
-                                            <TableCell>
-
-                                                {Array.from(value).length>0?
-                                                    <Cell record={value} message={value}/>:''}
+                                            <TableCell className={classes.tableCell}>
+                                                {
+                                                    Array.from(value).length>0?
+                                                    <Cell
+                                                        statusColor = {value[0].status==="new"?"red"
+                                                            :(value[0].status==="hold")?"yellow": "green"}
+                                                        record = {value}
+                                                        message = {value}
+                                                    />:''
+                                                }
                                             </TableCell>
 
                                         </>);
                                         })
                                 }
-
-
-
                             </TableRow>
                         {item.volunteers.map((vol:any)=>{
                             return (
-                                <TableRow >
+                                <TableRow className={classes.volRow}>
                                     <TableCell className={classes.volunteers}>
                                         {vol.volName}
                                     </TableCell>
@@ -103,10 +93,11 @@ const Sheet: React.FC<SheetProps> = ({
 
                                                 <>
 
-                                                    <TableCell>
+                                                    <TableCell className={classes.tableCell}>
 
                                                         {Array.from(value).length>0?
-                                                            <Cell record={value} message={value}/>:''}
+                                                            <Cell statusColor={value[0].status==="new"?"red"
+                                                                :(value[0].status==="hold")?"yellow": "green"} record={value} message={value}/>:''}
 
                                                     </TableCell>
 

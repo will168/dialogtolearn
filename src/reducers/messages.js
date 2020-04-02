@@ -13,7 +13,8 @@ const initialState = {
                         {
                           "id" : 528,
                           "subject": "Hi Ted",
-                          "body": "I went to the zoo. --John"
+                          "body": "I went to the zoo. --John",
+                           "status": "new"
                         }
                       ],
                   "4/13/20":
@@ -22,11 +23,13 @@ const initialState = {
                       [
                         {
                           "subject": "Fun",
-                          "body": "I dont like tacos. --John"
+                          "body": "I dont like tacos. --John",
+                            "status": "new"
                         },
                         {
                           "subject": "Re: Fun",
-                          "body": "I forgot to say, cruchy tacos --John"
+                          "body": "I forgot to say, cruchy tacos --John",
+                            "status": "new"
                         }
                       ]
                 }
@@ -41,7 +44,8 @@ const initialState = {
                         [
                           {
                             "subject": "Hi Ted",
-                            "body": "I am your new buddy. --Ted"
+                            "body": "I am your new buddy. --Ted",
+                              "status": "new"
                           }
 
                         ],
@@ -51,7 +55,8 @@ const initialState = {
                         [
                           {
                             "subject": "Re: Fun",
-                            "body": "enchiladas are fine though. --Ted"
+                            "body": "enchiladas are fine though. --Ted",
+                              "status": "new"
                           }
                         ]
                   }
@@ -64,7 +69,8 @@ const initialState = {
                         [
                           {
                             "subject": "Goodbye John",
-                            "body": "I cant be your volunteer anymore!"
+                            "body": "I cant be your volunteer anymore!",
+                              "status": "new"
                           }
                         ],
                     "4/13/20":
@@ -85,21 +91,24 @@ const initialState = {
                       [
                         {
                           "subject": "Hi Joan",
-                          "body": "I went to the zoo. --Sally"
+                          "body": "I went to the zoo. --Sally",
+                            "status": "okay"
                         }
                       ],
                   "4/13/20":
                       [
                         {
                           "subject": "Re: Hi Joan",
-                          "body": "Why does air exist? --Sally"
+                          "body": "Why does air exist? --Sally",
+                            "status": "hold"
                         }
                       ],
                   "4/20/20":
                       [
                         {
                           "subject": "Re: Hi Joan",
-                          "body": "I thought that was maybe why. --Sally"
+                          "body": "I thought that was maybe why. --Sally",
+                            "status": "new"
                         }
                       ]
                 }
@@ -114,21 +123,24 @@ const initialState = {
                         [
                           {
                             "subject": "Re: Hi Joan",
-                            "body": "I am your new buddy. --Joan"
+                            "body": "I am your new buddy. --Joan",
+                              "status": "okay"
                           }
                         ],
                     "4/13/20":
                         [
                           {
                             "subject": "Re: Hi Joan",
-                            "body": "Air is for inflating volley balls. --Joan"
+                            "body": "Air is for inflating volley balls. --Joan",
+                              "status": "hold"
                           }
                         ],
                     "4/20/20":
                         [
                           {
                             "subject": "Re: Hi Joan",
-                            "body": "Im glad you understand about air now, --Joan"
+                            "body": "Im glad you understand about air now, --Joan",
+                              "status": "new"
                           }
                         ]
                   }
