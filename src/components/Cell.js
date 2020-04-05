@@ -17,7 +17,7 @@ const useStyles = makeStyles({
         maxHeight: '25px',
         maxWidth: '25px',
 
-      "&:hover": {
+      '&:hover': {
         //you want this to be the same as the backgroundColor above
         background: ({statusColor})=> statusColor,
     }, '&:focus': {
@@ -35,7 +35,7 @@ const Cell = ({ message, record, showRecord, showMessage, statusColor }) => {
   return (
     <div className={classes.div}>
       <Button className={classes.btn}
-
+              tabindex="1"
               onMouseOver={() => showRecord(record)}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
