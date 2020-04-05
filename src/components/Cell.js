@@ -16,25 +16,21 @@ const useStyles = makeStyles({
         minHeight: '25px',
         maxHeight: '25px',
         maxWidth: '25px',
-        borderColor: 'red'
-    },  "&:hover": {
+
+      "&:hover": {
         //you want this to be the same as the backgroundColor above
         background: ({statusColor})=> statusColor,
-    }
-});
+    }, '&:focus': {
+            background: '#9e9e9e',
+            boxShadow: '0 0 5px'
+        }}});
 
 const Cell = ({ message, record, showRecord, showMessage, statusColor }) => {
   const [hovered, setHovered] = useState(false);
-  const [selected, setSelected] = useState(false);
 
   const toggleHover = () => setHovered(!hovered);
   const classes = useStyles({statusColor});
 
-  const handleClick = () => {
-      setSelected(!selected)
-      showMessage(message);
-      console.log(selected)
-  };
 
   return (
     <div className={classes.div}>
@@ -43,7 +39,7 @@ const Cell = ({ message, record, showRecord, showMessage, statusColor }) => {
               onMouseOver={() => showRecord(record)}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
-              onClick={handleClick}
+              onClick={() => showMessage(message)}
       >
       </Button>
       {hovered && (

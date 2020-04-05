@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {green, grey, red, } from "@material-ui/core/colors";
 import {connect} from "react-redux";
 import Cell from "./Cell";
-import {ToggleButtonGroup} from "@material-ui/lab";
 
 
 const useStyles = makeStyles({
