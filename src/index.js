@@ -7,7 +7,15 @@ import Monitor from "./components/MonitorContainer";
 import {composeWithDevTools} from "redux-devtools-extension";
 import Sheet from "./components/Sheet";
 import Grid from "@material-ui/core/Grid";
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+const theme = createMuiTheme({
+        // Name of the component ⚛️
+        MuiButtonBase: {
+            // The properties to apply
+            disableRipple: true,
+    },
+});
 const store = createStore(
   combineReducers({
 
@@ -19,7 +27,9 @@ function App() {
 
   return (
     <Provider store={store}>
-      <div>
+        <ThemeProvider theme={theme}>
+
+        <div>
           <Grid container>
               <Grid item xs={9}>
 
@@ -30,6 +40,7 @@ function App() {
               </Grid>
           </Grid>
       </div>
+        </ThemeProvider>
     </Provider>
   );
 }
