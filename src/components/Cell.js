@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
       '&:hover': {
         //you want this to be the same as the backgroundColor above
-        background: ({statusColor})=> statusColor,
+        // background: ({statusColor})=> statusColor,
     }, '&:focus': {
             background: '#9e9e9e',
             boxShadow: '0 0 5px'
