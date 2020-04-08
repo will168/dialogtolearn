@@ -26,3 +26,5 @@ record.ts
 records.ts
 src/react-app-env.d.ts
 /.idea
+record.json
+records.json

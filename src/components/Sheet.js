@@ -33,11 +33,7 @@ const useStyles = makeStyles({
 
 });
 
-interface SheetProps {
-    records: any;
-}
-const Sheet: React.FC<SheetProps> = ({
-    records}) => {
+const Sheet= ({ records }) => {
     const sheetRecords = records.records;
     const colNames = records.columnNames;
     const classes = useStyles();
@@ -48,13 +44,13 @@ const Sheet: React.FC<SheetProps> = ({
                 <TableHead>
                 <TableRow className={classes.headRow}>
                 <TableCell>Dates</TableCell>
-                    {colNames.map((colName: any) => {
+                    {colNames.map((colName) => {
                         return (<TableCell>{colName}</TableCell>)
                     })}
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                    {sheetRecords.map((item:any)=> {
+                    {sheetRecords.map((item)=> {
                         return (
                             <>
                             <TableRow>
@@ -62,13 +58,16 @@ const Sheet: React.FC<SheetProps> = ({
                                     {item.student.studentName}
                                 </TableCell>
                                 {
-                                    Object.values(item.student.emails).map(
-                                        (value: any)=> {
+                                    Object.entries(item.student.emails).map(
+                                        ([k , value]) => {
                                         return(<>
                                             <TableCell className={classes.tableCell}>
                                                 {
                                                     Array.from(value).length>0?
                                                     <Cell
+                                                        entity="student"
+                                                        entityName={item.student.studentName}
+                                                        date = {k}
                                                         statusColor = {value[0].status==="new"?"red"
                                                             :(value[0].status==="hold")?"yellow": "green"}
                                                         record = {value}
@@ -81,27 +80,38 @@ const Sheet: React.FC<SheetProps> = ({
                                         })
                                 }
                             </TableRow>
-                        {item.volunteers.map((vol:any)=>{
+                        {item.volunteers.map((vol)=>{
+                            {console.log( vol.emails)}
+                            // {console.log(typeof(Object.entries(vol.emails)))}
+                            // {Object.entries(vol.emails).map((key : any, value:any) => console.log("key is ", key,
+                            //     "value is", value))}
                             return (
                                 <TableRow className={classes.volRow}>
                                     <TableCell className={classes.volunteers}>
                                         {vol.volName}
                                     </TableCell>
                                     {
-                                        Object.values(vol.emails).map(
-                                            (value:any) =>
 
-                                                <>
+                                        Object.entries(vol.emails).map(
+                                            ([k , value]) => {
+                                            console.log("key is ", k, "value is ", value)
+                                                return (<>
 
                                                     <TableCell className={classes.tableCell}>
 
                                                         {Array.from(value).length>0?
-                                                            <Cell statusColor={value[0].status==="new"?"red"
-                                                                :(value[0].status==="hold")?"yellow": "green"} record={value} message={value}/>:''}
+                                                            <Cell
+
+                                                                entity="volunteers"
+                                                                entityName = {vol.volName}
+                                                                date = {k}
+                                                                statusColor={value[0].status==="new"?"red"
+                                                                :(value[0].status==="hold")?"yellow": "green"}
+                                                                record={value} message={value}/>:''}
 
                                                     </TableCell>
 
-                                                </>)
+                                                </>)})
                                     }
                                 </TableRow>
                             )
@@ -117,7 +127,7 @@ const Sheet: React.FC<SheetProps> = ({
 
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state) => {
     return {
         columnNames: state.columnNames,
         records: state.records

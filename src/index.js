@@ -10,10 +10,12 @@ import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
+    props: {
         // Name of the component ⚛️
         MuiButtonBase: {
             // The properties to apply
             disableRipple: true,
+        },
     },
 });
 const store = createStore(

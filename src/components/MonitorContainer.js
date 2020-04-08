@@ -1,5 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import {
+        updateDraft
+} from "../actions/draft-action";
 
 import {
     Button,
@@ -18,13 +21,26 @@ const useStyles = makeStyles({
     ButtonGroup: {
         '& Button': {
             marginRight: 10 + 'px',
-            marginBottom: 10 + 'px'
+            marginBottom: 10 + 'px',
+
         },
+
     }
 });
-const MonitorContainer = ({ records }) => {
+const MonitorContainer = ({ records, updateDraft }) => {
     const classes = useStyles();
     const thisRecord = records.message;
+    console.log(typeof (thisRecord['message']))
+
+    const m = thisRecord['message']
+    let b;
+    if (typeof (m) != "undefined") {
+        // console.log(m[0].subject)
+        b = m[0].body;
+    }
+
+
+
     // const records = messages.records;
     // for (let i = 0; i < records.length; i++) {
     //     console.log("-" + records[i].student["studentName"]);
@@ -36,8 +52,10 @@ const MonitorContainer = ({ records }) => {
     <div>
         <Container>
             <br/>
+
             <ButtonGroup  className={classes.ButtonGroup}>
-                <Button variant={"contained"}>Okay</Button>
+                <Button variant={"contained"} style={{backgroundColor: 'transparent'}}
+                >Okay</Button>
                 <Button variant={"contained"}>Hold</Button>
                 <Button variant={"contained"} color={"primary"}>New</Button>
             </ButtonGroup>
@@ -52,14 +70,31 @@ const MonitorContainer = ({ records }) => {
                 To:
                 <br/> <br/>
                 <TextField label={"Subject"} size={"small"}
-                           value={thisRecord.length>0 ? thisRecord[0].subject : '' }
-                           defaultValue={thisRecord.length>0 ? thisRecord[0].subject : ''} variant={"outlined"} />
+                           value={
+                               typeof (m) != "undefined" ? m[0].subject :'' }
+                           defaultValue={
+                               typeof (m) != "undefined" ? m[0].subject :''} variant={"outlined"} />
             </Typography>
 
             <br/><br/>
-            <TextareaAutosize  style={{width: 300+'px'}}
-                               rowsMin={10}
-                               value = {thisRecord.length>0 ? thisRecord[0].body : ''}  />
+            <TextField  style={{width: '300px'}}
+                        fullWidth={true}
+                        multiline={true}
+                        rows="10"
+                        variant={"outlined"}
+                        label={"Body"}
+
+                        value = {typeof (m) != "undefined" ? b :'' }
+                        onChange = {(evt) =>
+                            (updateDraft)(
+                                thisRecord.entity,
+                                thisRecord.entityName,
+                                thisRecord.date,
+                                evt.target.value
+                            )
+                        }
+                        // value = {m[0].body}
+            />
             <br/>
             <ButtonGroup className={classes.ButtonGroup}>
                 <Button variant={"contained"}>Accept Edits</Button>
@@ -72,10 +107,19 @@ const MonitorContainer = ({ records }) => {
   );
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        updateDraft: (entity, entityName, date, body) =>
+            dispatch(updateDraft(entity, entityName, date, body)),
+
+    };
+};
+
 const mapStateToProps = state => {
   return {
     records: state.records
   };
 };
 
-export default connect(mapStateToProps)(MonitorContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MonitorContainer);

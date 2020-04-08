@@ -19,24 +19,37 @@ const useStyles = makeStyles({
             boxShadow: '0 0 5px'
         }}});
 
-const Cell = ({ message, record, showRecord, showMessage, statusColor, selected = false, onSelect = f => f }) => {
+const Cell = ({ message,
+                  record,
+                  showRecord,
+                  showMessage,
+                  statusColor,
+                  date,
+                  entity,
+                  entityName
+}) => {
   const [hovered, setHovered] = useState(false);
 
   const toggleHover = () => setHovered(!hovered);
   const classes = useStyles({statusColor});
+    console.log("entity is ", entity, entityName)
+  const messageToShow = {
+      date,
+      entity,
+      entityName,
+      message
+  }
+  //   date, entity, entityName,
 
 
   return (
     <div className={classes.div}>
       <button className={classes.btn}
-              id = "status_button"
-
-              onMouseOver={() => showRecord(record)}
+              onMouseOver={() => showRecord(messageToShow)}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
-
               style={{ backgroundColor: {statusColor} }}
-              onClick={() => showMessage(message)}
+              onClick={() => showMessage(messageToShow)}
       >
       </button>
       {hovered && (
@@ -48,8 +61,8 @@ const Cell = ({ message, record, showRecord, showMessage, statusColor, selected 
 
 const mapDispatchToProps = dispatch => {
   return {
-    showRecord: (record) => (dispatch(showRecord(record))),
-    showMessage: (message) => (dispatch(showMessage(message)))
+    showRecord: (messageToShow) => (dispatch(showRecord(messageToShow))),
+    showMessage: (messageToShow) => (dispatch(showMessage(messageToShow)))
     }
 };
 

@@ -20,21 +20,19 @@ const useStyles = makeStyles({
     }
 });
 
-interface InfoCardProps {
 
-    records: any;
-}
-
-const InfoCard:React.FC<InfoCardProps> = ({records}) => {
+const InfoCard= ({ records }) => {
     const thisRecord = records.record;
+    const m = thisRecord['message']
+
     const classes = useStyles();
     return (
 
         <Card className={classes.Card}>
             <div className={classes.div}>
-            <p>{thisRecord.length>0 ? thisRecord[0].subject : ''}</p>
+            <p>{typeof (m) != "undefined" ? m[0].subject :''}</p>
             <br/>
-            <p>{thisRecord.length>0 ? thisRecord[0].body : ''}</p>
+            <p>{typeof (m) != "undefined" ? m[0].body :''}</p>
             </div>
         </Card>
 
@@ -42,7 +40,7 @@ const InfoCard:React.FC<InfoCardProps> = ({records}) => {
 };
 
 
-const mapStateToProps = (state: any)=> {
+const mapStateToProps = (state)=> {
     return {
         records: state.records
     };
