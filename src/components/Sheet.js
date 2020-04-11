@@ -33,9 +33,9 @@ const useStyles = makeStyles({
 
 });
 
-const Sheet= ({ records }) => {
-    const sheetRecords = records.records;
-    const colNames = records.columnNames;
+const Sheet= ({ data }) => {
+    const sheetRecords = data.records;
+    const colNames = data.columnNames;
     const classes = useStyles();
 
     return (
@@ -50,7 +50,7 @@ const Sheet= ({ records }) => {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                    {sheetRecords.map((item)=> {
+                    {sheetRecords.map(( item)=> {
                         return (
                             <>
                             <TableRow>
@@ -61,17 +61,17 @@ const Sheet= ({ records }) => {
                                     Object.entries(item.student.emails).map(
                                         ([k , value]) => {
                                         return(<>
-                                            <TableCell className={classes.tableCell}>
+                                            <TableCell key={k} className={classes.tableCell}>
                                                 {
                                                     Array.from(value).length>0?
                                                     <Cell
+                                                        recordId = {item.id}
                                                         entity="student"
                                                         entityName={item.student.studentName}
                                                         date = {k}
                                                         statusColor = {value[0].status==="new"?"red"
                                                             :(value[0].status==="hold")?"yellow": "green"}
-                                                        record = {value}
-                                                        message = {value}
+                                                        record = {value[0]}
                                                     />:''
                                                 }
                                             </TableCell>
@@ -87,7 +87,7 @@ const Sheet= ({ records }) => {
                             //     "value is", value))}
                             return (
                                 <TableRow className={classes.volRow}>
-                                    <TableCell className={classes.volunteers}>
+                                    <TableCell key={vol.volName} className={classes.volunteers}>
                                         {vol.volName}
                                     </TableCell>
                                     {
@@ -97,17 +97,18 @@ const Sheet= ({ records }) => {
                                             console.log("key is ", k, "value is ", value)
                                                 return (<>
 
-                                                    <TableCell className={classes.tableCell}>
+                                                    <TableCell key={k} className={classes.tableCell}>
 
                                                         {Array.from(value).length>0?
                                                             <Cell
-
+                                                                recordId = {item.id}
                                                                 entity="volunteers"
                                                                 entityName = {vol.volName}
                                                                 date = {k}
                                                                 statusColor={value[0].status==="new"?"red"
                                                                 :(value[0].status==="hold")?"yellow": "green"}
-                                                                record={value} message={value}/>:''}
+                                                                record={value[0]}
+                                                            />:''}
 
                                                     </TableCell>
 
@@ -130,7 +131,7 @@ const Sheet= ({ records }) => {
 const mapStateToProps = (state) => {
     return {
         columnNames: state.columnNames,
-        records: state.records
+        data: state.data
     };
 };
 

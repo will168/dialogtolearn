@@ -1,6 +1,7 @@
-export const showMessage = message => {
+export const updateMessage = message => {
+  console.log("you clicked for monitor message", message);
   return {
-    type: "SHOW_MESSAGE",
+    type: "UPDATE_MESSAGE",
     payload: message
   };
 };

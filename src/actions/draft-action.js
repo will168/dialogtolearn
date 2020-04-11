@@ -1,24 +1,30 @@
-export function openDraft(record) {
+export function openDraft(draft) {
+    console.log("open draft", draft)
     return {
         type: "OPEN_DRAFT",
-        payload: record
+        payload: draft
     };
 }
-
-export function updateDraft(entity, entityName, date,  body){
+export function clearDraft() {
     return {
-        type: "UPDATE_DRAFT",
-        payload: {
-            entity,
-            entityName,
-            date,
-            body
-        }
+        type: "CLEAR_DRAFT",
+        payload: {}
+    }
+}
+export function editSubject(subject){
+
+    console.log("subject action", subject)
+    return {
+        type: "EDIT_SUBJECT",
+        payload: subject
     };
 }
 
-// export function clearDraft(): any {
-//     return {
-//         type: "CLEAR_DRAFT"
-//     };
-// }
+
+export function editBody(body){
+    return {
+        type: "EDIT_BODY",
+        payload: body
+        }
+}
+

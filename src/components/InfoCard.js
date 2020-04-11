@@ -21,29 +21,28 @@ const useStyles = makeStyles({
 });
 
 
-const InfoCard= ({ records }) => {
-    const thisRecord = records.record;
-    const m = thisRecord['message']
-
+const InfoCard= ({ record }) => {
+    // const thisRecord = records.record;
+    // const m = thisRecord['message']
+    console.log("infor card is ", record)
     const classes = useStyles();
     return (
 
         <Card className={classes.Card}>
             <div className={classes.div}>
-            <p>{typeof (m) != "undefined" ? m[0].subject :''}</p>
-            <br/>
-            <p>{typeof (m) != "undefined" ? m[0].body :''}</p>
+                <p>{record.subject}</p>
+                <p>{record.body}</p>
             </div>
         </Card>
 
     )
 };
 
-
-const mapStateToProps = (state)=> {
-    return {
-        records: state.records
-    };
-};
-
-export default connect(mapStateToProps)(InfoCard);
+export default InfoCard;
+// const mapStateToProps = (state)=> {
+//     return {
+//         record: state.record
+//     };
+// };
+//
+// export default connect(mapStateToProps)(InfoCard);

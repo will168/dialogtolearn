@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-        updateDraft
-} from "../actions/draft-action";
+
 
 import {
     Button,
@@ -12,7 +10,8 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-
+import {editBody, clearDraft, editSubject} from "../actions/draft-action";
+import {updateMessage} from "../actions/messageActions"
 
 const useStyles = makeStyles({
     div: {
@@ -27,99 +26,96 @@ const useStyles = makeStyles({
 
     }
 });
-const MonitorContainer = ({ records, updateDraft }) => {
+const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editBody }) => {
     const classes = useStyles();
-    const thisRecord = records.message;
-    console.log(typeof (thisRecord['message']))
+    console.log("draft is ", draft)
 
-    const m = thisRecord['message']
-    let b;
-    if (typeof (m) != "undefined") {
-        // console.log(m[0].subject)
-        b = m[0].body;
+    const handleClick = (draft) => {
+        updateMessage(draft);
+        clearDraft();
     }
-
-
-
-    // const records = messages.records;
-    // for (let i = 0; i < records.length; i++) {
-    //     console.log("-" + records[i].student["studentName"]);
-    //     for (let j = 0; j < records[i].volunteers.length; j++) {
-    //         console.log("-->" + records[i].volunteers[j]["volName"])
-    //     }
-    // }
-  return (
-    <div>
-        <Container>
-            <br/>
-
-            <ButtonGroup  className={classes.ButtonGroup}>
-                <Button variant={"contained"} style={{backgroundColor: 'transparent'}}
-                >Okay</Button>
-                <Button variant={"contained"}>Hold</Button>
-                <Button variant={"contained"} color={"primary"}>New</Button>
-            </ButtonGroup>
-            <br/> <br/>
-            <Typography variant={"caption"}>
-                Email Row Key: 527
+    return (
+        <div>
+            <Container>
                 <br/>
-                Date:
-                <br/>
-                From:
-                <br/>
-                To:
+
+                <ButtonGroup  className={classes.ButtonGroup}>
+                    <Button variant={"contained"} style={{backgroundColor: 'transparent'}}
+                    >Okay</Button>
+                    <Button variant={"contained"}>Hold</Button>
+                    <Button variant={"contained"} color={"primary"}>New</Button>
+                </ButtonGroup>
                 <br/> <br/>
-                <TextField label={"Subject"} size={"small"}
-                           value={
-                               typeof (m) != "undefined" ? m[0].subject :'' }
-                           defaultValue={
-                               typeof (m) != "undefined" ? m[0].subject :''} variant={"outlined"} />
-            </Typography>
+                <Typography variant={"caption"}>
+                    Email Row Key: 527
+                    <br/>
+                    Date:
+                    <br/>
+                    From:
+                    <br/>
+                    To:
+                    <br/> <br/>
 
-            <br/><br/>
-            <TextField  style={{width: '300px'}}
-                        fullWidth={true}
-                        multiline={true}
-                        rows="10"
+                    <TextField
+                        label={"Subject"}
                         variant={"outlined"}
-                        label={"Body"}
+                        type="text"
+                               value={draft.subject || ''}
+                               onChange= {(event) =>
+                                   editSubject(event.target.value)
+                               }
 
-                        value = {typeof (m) != "undefined" ? b :'' }
-                        onChange = {(evt) =>
-                            (updateDraft)(
-                                thisRecord.entity,
-                                thisRecord.entityName,
-                                thisRecord.date,
-                                evt.target.value
-                            )
-                        }
-                        // value = {m[0].body}
-            />
-            <br/>
-            <ButtonGroup className={classes.ButtonGroup}>
-                <Button variant={"contained"}>Accept Edits</Button>
-                <Button variant={"contained"}>Cancel</Button>
+                    />
+                </Typography>
 
-            </ButtonGroup>
-        </Container>
+                <br/><br/>
+                <TextField  style={{width: '300px'}}
+                            fullWidth={true}
+                            multiline={true}
+                            rows="10"
+                            variant={"outlined"}
+                            label={"Body"}
+                            value={draft.body || ''}
+                            onChange= {(event) =>
+                                editBody(event.target.value)
+                            }
+                />
+                <br/>
+                <ButtonGroup className={classes.ButtonGroup}>
+                    <Button variant={"contained"}
+                            type="submit"
+                            onClick={()=>handleClick(draft)}
 
-    </div>
-  );
+                    >Accept Edits</Button>
+                    <Button variant={"contained"}>Cancel</Button>
+
+                </ButtonGroup>
+
+            </Container>
+
+        </div>
+    );
 };
 
-const mapDispatchToProps = (dispatch) => {
+
+
+const mapDispatchToProps = dispatch => {
     return {
-
-        updateDraft: (entity, entityName, date, body) =>
-            dispatch(updateDraft(entity, entityName, date, body)),
-
-    };
+        updateMessage: (draft) =>
+            (dispatch(updateMessage(draft))),
+        editSubject: (subject) =>
+            (dispatch(editSubject(subject))),
+        editBody: (body) => (dispatch(editBody(body))),
+        clearDraft: () => (dispatch(clearDraft()))
+    }
 };
 
-const mapStateToProps = state => {
-  return {
-    records: state.records
-  };
+
+const mapStateToProps = (state) => {
+    return {
+        records: state.records,
+        draft: state.draft
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MonitorContainer);

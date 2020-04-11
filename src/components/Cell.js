@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
-import {showMessage, showRecord} from "../actions/messageActions";
+import {showRecord} from "../actions/messageActions";
 import InfoCard from "./InfoCard";
 import {makeStyles} from "@material-ui/core/styles";
+import {openDraft} from "../actions/draft-action";
+
 
 const useStyles = makeStyles({
     div: {
@@ -19,54 +21,54 @@ const useStyles = makeStyles({
             boxShadow: '0 0 5px'
         }}});
 
-const Cell = ({ message,
+const Cell = ({
                   record,
                   showRecord,
-                  showMessage,
+                  openDraft,
                   statusColor,
                   date,
                   entity,
-                  entityName
+                  entityName,
+                  recordId
 }) => {
   const [hovered, setHovered] = useState(false);
 
   const toggleHover = () => setHovered(!hovered);
   const classes = useStyles({statusColor});
-    console.log("entity is ", entity, entityName)
-  const messageToShow = {
-      date,
-      entity,
-      entityName,
-      message
+  const refObj = {
+      ...record,
+      id: recordId,
+      entity: entity,
+      entityName: entityName,
+      date: date
   }
-  //   date, entity, entityName,
-
 
   return (
     <div className={classes.div}>
       <button className={classes.btn}
-              onMouseOver={() => showRecord(messageToShow)}
+              onMouseOver={() => showRecord(refObj)}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
               style={{ backgroundColor: {statusColor} }}
-              onClick={() => showMessage(messageToShow)}
+              onClick={() => openDraft(refObj)}
       >
       </button>
-      {hovered && (
-          <InfoCard records={record}/>
+      {hovered && record && (
+          <InfoCard record={refObj}/>
       )}
     </div>
   );
 };
 
+
 const mapDispatchToProps = dispatch => {
   return {
-    showRecord: (messageToShow) => (dispatch(showRecord(messageToShow))),
-    showMessage: (messageToShow) => (dispatch(showMessage(messageToShow)))
+    showRecord: (refObj) => (dispatch(showRecord(refObj))),
+    openDraft: (refObj) => (dispatch(openDraft(refObj)))
     }
 };
 
 export default connect(
-  null,
+    null,
   mapDispatchToProps
 )(Cell);
