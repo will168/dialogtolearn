@@ -113,7 +113,6 @@ const Sheet= ({ data }) => {
                                                                         </>)
                                                         )}
                                                 </TableRow>))
-                                        })
                                         }
                                     </>
                                 )
