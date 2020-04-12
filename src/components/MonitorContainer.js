@@ -92,7 +92,9 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editB
                             onClick={()=>handleClick(draft)}
 
                     >Accept Edits</Button>
-                    <Button variant={"contained"}>Cancel</Button>
+                    <Button variant={"contained"}
+                    onClick = {()=>clearDraft(draft)}
+                    >Cancel</Button>
 
                 </ButtonGroup>
 
