@@ -21,7 +21,8 @@ const useStyles = makeStyles({
         background: grey[400]
     },
     tableCell: {
-        paddingBottom: '40px'
+        paddingBottom: '40px',
+
     },
     volunteers: {
         color: red[200]
@@ -40,93 +41,89 @@ const Sheet= ({ data }) => {
 
     return (
         <TableContainer>
-            <Table >
+            <Table>
                 <TableHead>
-                <TableRow className={classes.headRow}>
-                <TableCell>Dates</TableCell>
-                    {colNames.map((colName) => {
-                        return (<TableCell>{colName}</TableCell>)
-                    })}
-                </TableRow>
+                    <TableRow className={classes.headRow}>
+                        <TableCell>Dates</TableCell>
+                        {colNames.map((colName) => {
+                            return (<TableCell>{colName}</TableCell>)
+                        })}
+                    </TableRow>
                 </TableHead>
                 <TableBody>
-                    {sheetRecords.map(( item)=> {
-                        return (
-                            <>
-                            <TableRow>
-                                <TableCell className={classes.students}>
-                                    {item.student.studentName}
-                                </TableCell>
-                                {
-                                    Object.entries(item.student.emails).map(
-                                        ([k , value]) => {
-                                        return(<>
-                                            <TableCell key={k} className={classes.tableCell}>
-                                                {
-                                                    Array.from(value).length>0?
-                                                    <Cell
-                                                        recordId = {item.id}
-                                                        entity="student"
-                                                        entityName={item.student.studentName}
-                                                        date = {k}
-                                                        statusColor = {value[0].status==="new"?"red"
-                                                            :(value[0].status==="hold")?"yellow": "green"}
-                                                        record = {value[0]}
-                                                    />:''
-                                                }
+                    {sheetRecords.map((item) =>
+                        (item.student).map((stud) => {
+                                return (
+                                    <>
+                                        <TableRow>
+                                            <TableCell className={classes.students}>
+                                                {stud.entityName}
                                             </TableCell>
+                                            {
+                                                Object.entries(stud.emails).map(
+                                                    ([k , mails]) => {
+                                            return (<>
+                                                <TableCell size={'medium'} key={k} className={classes.tableCell}>
+                                                    {mails.map(
+                                                            (mail)=>(
 
-                                        </>);
-                                        })
-                                }
-                            </TableRow>
-                        {item.volunteers.map((vol)=>{
-                            {console.log( vol.emails)}
-                            // {console.log(typeof(Object.entries(vol.emails)))}
-                            // {Object.entries(vol.emails).map((key : any, value:any) => console.log("key is ", key,
-                            //     "value is", value))}
-                            return (
-                                <TableRow className={classes.volRow}>
-                                    <TableCell key={vol.volName} className={classes.volunteers}>
-                                        {vol.volName}
-                                    </TableCell>
-                                    {
+                                                        <TableCell style={{padding: '20px'}}>
+                                                                    <Cell
+                                                                        recordId = {item.id}
+                                                                        entity="student"
+                                                                        entityName={stud.entityName}
+                                                                        date = {k}
+                                                                        statusColor = {mail.status==="new"?"red"
+                                                                            :(mail.status==="hold")?"yellow": "green"}
+                                                                        record = {mail}
+                                                                    />
+                                                        </TableCell>
 
-                                        Object.entries(vol.emails).map(
-                                            ([k , value]) => {
-                                            console.log("key is ", k, "value is ", value)
-                                                return (<>
-
-                                                    <TableCell key={k} className={classes.tableCell}>
-
-                                                        {Array.from(value).length>0?
-                                                            <Cell
-                                                                recordId = {item.id}
-                                                                entity="volunteers"
-                                                                entityName = {vol.volName}
-                                                                date = {k}
-                                                                statusColor={value[0].status==="new"?"red"
-                                                                :(value[0].status==="hold")?"yellow": "green"}
-                                                                record={value[0]}
-                                                            />:''}
-
+                                                        ))}
+                                                </TableCell>
+                                                </>)}
+                                                    )}
+                                        </TableRow>
+                                        {item.volunteers.map((vol)=>(
+                                                <TableRow className={classes.volRow}>
+                                                    <TableCell key={vol.entityName} className={classes.volunteers}>
+                                                        {vol.entityName}
                                                     </TableCell>
+                                                    {
+                                                        Object.entries(vol.emails).map(
+                                                            ([k , mails]) => (
+                                                                <>
+                                                                    <TableCell key={k} className={classes.tableCell}>
+                                                                        {Object.values(mails).map(
+                                                                            (mail)=>(
+                                                                            <TableCell style={{padding: '20px'}}>
+                                                                            <Cell
+                                                                                recordId = {item.id}
+                                                                                entity="volunteers"
+                                                                                entityName = {vol.entityName}
+                                                                                date = {k}
+                                                                                statusColor={mail.status==="new"?"red"
+                                                                                    :(mail.status==="hold")?"yellow": "green"}
+                                                                                record={mail}
+                                                                            />
+                                                                            </TableCell>
 
-                                                </>)})
-                                    }
-                                </TableRow>
-                            )
-                        })}
-                        </>
-                        )
-                    })}
+                                                                            ))}
+                                                                    </TableCell>
+                                                                        </>)
+                                                        )}
+                                                </TableRow>))
+                                        })
+                                        }
+                                    </>
+                                )
+                        }))}
                 </TableBody>
             </Table>
-
         </TableContainer>
     )
+}
 
-};
 
 const mapStateToProps = (state) => {
     return {
@@ -136,3 +133,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Sheet);
+

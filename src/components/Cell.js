@@ -21,6 +21,7 @@ const useStyles = makeStyles({
             boxShadow: '0 0 5px'
         }}});
 
+
 const Cell = ({
                   record,
                   showRecord,
@@ -51,6 +52,9 @@ const Cell = ({
               onMouseLeave={toggleHover}
               style={{ backgroundColor: {statusColor} }}
               onClick={() => openDraft(refObj)}
+              name={'btn'}
+              data-flag={0}
+
       >
       </button>
       {hovered && record && (

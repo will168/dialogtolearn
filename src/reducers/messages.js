@@ -4,8 +4,9 @@ const initialState = {
         [
             {"id": 1,
                 "student":
-                    {
-                        "studentName": "John",
+                    [
+                        {
+                        "entityName": "John",
                         "emails":
                             {
                                 "4/6/20":
@@ -35,11 +36,11 @@ const initialState = {
                                         }
                                     ]
                             }
-                    },
+                    },],
                 "volunteers":
                     [
                         {
-                            "volName": "Ted",
+                            "entityName": "Ted",
                             "emails":
                                 {
                                     "4/6/20":
@@ -66,7 +67,7 @@ const initialState = {
                                 }
                         },
                         {
-                            "volName": "Enrico",
+                            "entityName": "Enrico",
                             "emails":
                                 {
                                     "4/6/20":
@@ -89,8 +90,8 @@ const initialState = {
             {
                 "id": 2,
                 "student":
-                    {
-                        "studentName": "Sally",
+                    [{
+                        "entityName": "Sally",
                         "emails":
                             {
                                 "4/6/20":
@@ -121,11 +122,11 @@ const initialState = {
                                         }
                                     ]
                             }
-                    },
+                    }],
                 "volunteers":
                     [
                         {
-                            "volName": "Joan",
+                            "entityName": "Joan",
                             "emails":
                                 {
                                     "4/6/20":
@@ -163,41 +164,16 @@ const initialState = {
 }
 export default function (state=initialState,
                          action) {
-
-    console.log("action is ", action.payload)
     switch (action.type) {
         case "UPDATE_MESSAGE":
             let newState = Object.assign({},state);
-            console.log("new state is", newState.records)
-            console.log("in message reducer id", action.payload.id)
-
                 newState.records.find(({id})=>id===action.payload.id)
-                [action.payload.entity]["emails"]
-                [action.payload.date].find(({mailId})=>mailId===action.payload.mailId).subject = action.payload.subject
+                [action.payload.entity].find(({entityName})=>entityName === action.payload.entityName)
+                ["emails"][action.payload.date].find(({mailId})=>mailId===action.payload.mailId).subject = action.payload.subject
 
             newState.records.find(({id})=>id===action.payload.id)
-                [action.payload.entity]["emails"]
-                [action.payload.date].find(({mailId})=>mailId===action.payload.mailId).body = action.payload.body
-
-            console.log(newState)
-
-
-
-                // [action.payload.id]
-                // [action.payload.entity]["emails"]
-                // [action.payload.date])
-
-
-            //     .find((
-            //     {mailId}) =>
-            //     mailId === action.payload.mailId).subject=action.payload.subject
-            // newState.records[action.payload.id]
-            //     [action.payload.entity]["emails"]
-            //     [action.payload.date].find((
-            //     {mailId}) =>
-            //     mailId === action.payload.mailId).body=action.payload.body
-
-
+                [action.payload.entity].find(({entityName})=>entityName === action.payload.entityName)
+                ["emails"][action.payload.date].find(({mailId})=>mailId===action.payload.mailId).body = action.payload.body
             return newState;
         default:
             return state;

@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import {
     Button,
     ButtonGroup,
-    Container, TextField,
-    TextareaAutosize
+    Container,
+    TextField,
+
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
 
     }
 });
+
 const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editBody }) => {
     const classes = useStyles();
     console.log("draft is ", draft)
@@ -47,13 +49,13 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editB
                 </ButtonGroup>
                 <br/> <br/>
                 <Typography variant={"caption"}>
-                    Email Row Key: 527
+                    Email Row Key: {draft.mailId}
                     <br/>
-                    Date:
+                    Date: {draft.date}
                     <br/>
-                    From:
+                    From: {draft.entityName}
                     <br/>
-                    To:
+
                     <br/> <br/>
 
                     <TextField
@@ -64,6 +66,7 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editB
                                onChange= {(event) =>
                                    editSubject(event.target.value)
                                }
+                        data-flag = {0}
 
                     />
                 </Typography>
@@ -79,6 +82,8 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editB
                             onChange= {(event) =>
                                 editBody(event.target.value)
                             }
+                            data-flag = {0}
+
                 />
                 <br/>
                 <ButtonGroup className={classes.ButtonGroup}>
