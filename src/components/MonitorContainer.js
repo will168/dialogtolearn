@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {editBody, clearDraft, editSubject} from "../actions/draft-action";
+import {editBody, clearDraft, editSubject, updateStatus} from "../actions/draft-action";
 import {updateMessage} from "../actions/messageActions"
 
 const useStyles = makeStyles({
@@ -28,13 +28,38 @@ const useStyles = makeStyles({
     }
 });
 
-const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editBody }) => {
+const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft,updateStatus, editBody }) => {
     const classes = useStyles();
-    console.log("draft is ", draft)
-
+    function uncheck() {
+         document.getElementsByName("btn").forEach((item)=>{
+             item.checked=false
+         })
+    }
     const handleClick = (draft) => {
-        updateMessage(draft);
-        clearDraft();
+        if (Object.keys(draft).length === 0 && draft.constructor === Object) {
+            return;
+        } else {
+            updateMessage(draft);
+            uncheck();
+            clearDraft();
+        }
+    };
+
+    const cancelForm = () => {
+        if (Object.keys(draft).length === 0 && draft.constructor === Object) {
+            return;
+        } else {
+            uncheck();
+            clearDraft();
+        }
+    }
+
+    const updateStatusHelper = (draft, status) => {
+        if (Object.keys(draft).length === 0 && draft.constructor === Object) {
+            return;
+        } else {
+            updateStatus(draft, status)
+        }
     }
     return (
         <div>
@@ -42,10 +67,9 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editB
                 <br/>
 
                 <ButtonGroup  className={classes.ButtonGroup}>
-                    <Button variant={"contained"} style={{backgroundColor: 'transparent'}}
-                    >Okay</Button>
-                    <Button variant={"contained"}>Hold</Button>
-                    <Button variant={"contained"} color={"primary"}>New</Button>
+                    <Button variant={"contained"} onClick={()=>updateStatusHelper(draft, 'okay')}>Okay</Button>
+                    <Button variant={"contained"} onClick={()=>updateStatusHelper(draft, 'hold')}>Hold</Button>
+                    <Button variant={"contained"} onClick={()=>updateStatusHelper(draft, 'new')}>New</Button>
                 </ButtonGroup>
                 <br/> <br/>
                 <Typography variant={"caption"}>
@@ -93,7 +117,7 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft, editB
 
                     >Accept Edits</Button>
                     <Button variant={"contained"}
-                    onClick = {()=>clearDraft(draft)}
+                    onClick = {()=>cancelForm()}
                     >Cancel</Button>
 
                 </ButtonGroup>
@@ -113,7 +137,8 @@ const mapDispatchToProps = dispatch => {
         editSubject: (subject) =>
             (dispatch(editSubject(subject))),
         editBody: (body) => (dispatch(editBody(body))),
-        clearDraft: () => (dispatch(clearDraft()))
+        clearDraft: () => (dispatch(clearDraft())),
+        updateStatus: (draft, status) => (dispatch(updateStatus(draft, status)))
     }
 };
 

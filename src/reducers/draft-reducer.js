@@ -15,7 +15,6 @@ export default function (state=initialState, action) {
             return action.payload;
 
         case "EDIT_SUBJECT":
-            console.log("subject is", action.payload)
             return {
                 ...state,
                 subject: action.payload

@@ -6,17 +6,22 @@ import {makeStyles} from "@material-ui/core/styles";
 import {openDraft} from "../actions/draft-action";
 
 
+
 const useStyles = makeStyles({
     div: {
         position: "absolute",
     },
     btn: {
-        background: ({statusColor})=> statusColor,
+        backgroundColor: ({statusColor})=> statusColor,
+        border: '1px solid #fff',
+        // borderRadius: '50%',
+        padding: '0.5em',
+        '-webkit-appearance': 'none',
         minWidth: '25px',
         minHeight: '25px',
         maxHeight: '25px',
         maxWidth: '25px',
-        '&:focus': {
+        '&:checked': {
             background: '#9e9e9e',
             boxShadow: '0 0 5px'
         }}});
@@ -46,7 +51,7 @@ const Cell = ({
 
   return (
     <div className={classes.div}>
-      <button className={classes.btn}
+      <input type={"radio"} className={classes.btn}
               onMouseOver={() => showRecord(refObj)}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
@@ -54,9 +59,8 @@ const Cell = ({
               onClick={() => openDraft(refObj)}
               name={'btn'}
               data-flag={0}
+      />
 
-      >
-      </button>
       {hovered && record && (
           <InfoCard record={refObj}/>
       )}

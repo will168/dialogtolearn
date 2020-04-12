@@ -1,5 +1,4 @@
 export function openDraft(draft) {
-    console.log("open draft", draft)
     return {
         type: "OPEN_DRAFT",
         payload: draft
@@ -12,8 +11,6 @@ export function clearDraft() {
     }
 }
 export function editSubject(subject){
-
-    console.log("subject action", subject)
     return {
         type: "EDIT_SUBJECT",
         payload: subject
@@ -28,3 +25,20 @@ export function editBody(body){
         }
 }
 
+
+export function updateStatus(draft, status) {
+    if (Object.keys(draft).length === 0 && draft.constructor === Object) {
+        return {
+            type: "UPDATE_STATUS",
+            payload: {}
+        }
+    } else {
+        return {
+            type: "UPDATE_STATUS",
+            payload: {
+                draft,
+                status
+            }
+        }
+    }
+}

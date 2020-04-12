@@ -170,11 +170,16 @@ export default function (state=initialState,
                 newState.records.find(({id})=>id===action.payload.id)
                 [action.payload.entity].find(({entityName})=>entityName === action.payload.entityName)
                 ["emails"][action.payload.date].find(({mailId})=>mailId===action.payload.mailId).subject = action.payload.subject
-
             newState.records.find(({id})=>id===action.payload.id)
                 [action.payload.entity].find(({entityName})=>entityName === action.payload.entityName)
                 ["emails"][action.payload.date].find(({mailId})=>mailId===action.payload.mailId).body = action.payload.body
             return newState;
+        case "UPDATE_STATUS":
+            let newStatus = Object.assign({},state)
+            newStatus.records.find(({id})=>id===action.payload.draft.id)
+                [action.payload.draft.entity].find(({entityName})=>entityName === action.payload.draft.entityName)
+                ["emails"][action.payload.draft.date].find(({mailId})=>mailId===action.payload.draft.mailId).status = action.payload.status
+            return newStatus;
         default:
             return state;
     }

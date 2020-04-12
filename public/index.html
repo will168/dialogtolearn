@@ -15,16 +15,6 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <script>
-      document.addEventListener('click', function (event) {
-        if (event.target.matches('button')) {
-          event.target.focus()
-        }
-      })
-
-      let stat_button = document.querySelectorAll(".btn")
-      stat_button.forEach(item => console.log(item));
-    </script>
     <title>React App</title>
   </head>
   <body style="background: #eeeeee">
