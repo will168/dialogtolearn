@@ -73,8 +73,7 @@ const Sheet= ({ data }) => {
                                                                         entity="student"
                                                                         entityName={stud.entityName}
                                                                         date = {k}
-                                                                        statusColor = {mail.status==="new"?"red"
-                                                                            :(mail.status==="hold")?"yellow": "green"}
+                                                                        status={mail.status}
                                                                         record = {mail}
                                                                     />
                                                         </TableCell>
@@ -102,8 +101,7 @@ const Sheet= ({ data }) => {
                                                                                 entity="volunteers"
                                                                                 entityName = {vol.entityName}
                                                                                 date = {k}
-                                                                                statusColor={mail.status==="new"?"red"
-                                                                                    :(mail.status==="hold")?"yellow": "green"}
+                                                                                status={mail.status}
                                                                                 record={mail}
                                                                             />
                                                                             </TableCell>

@@ -31,7 +31,7 @@ const Cell = ({
                   record,
                   showRecord,
                   openDraft,
-                  statusColor,
+                  status,
                   date,
                   entity,
                   entityName,
@@ -40,6 +40,19 @@ const Cell = ({
   const [hovered, setHovered] = useState(false);
 
   const toggleHover = () => setHovered(!hovered);
+  function returnStatusColor(status) {
+      switch (status) {
+          case "okay":
+              return "green";
+          case "hold":
+              return "yellow";
+          case "new":
+              return "red";
+          default:
+              return "grey"
+      }
+  }
+  const statusColor = returnStatusColor(status);
   const classes = useStyles({statusColor});
   const refObj = {
       ...record,
@@ -48,7 +61,7 @@ const Cell = ({
       entityName: entityName,
       date: date
   }
-
+console.log(statusColor)
   return (
     <div className={classes.div}>
       <input type={"radio"} className={classes.btn}

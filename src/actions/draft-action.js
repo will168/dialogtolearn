@@ -27,12 +27,6 @@ export function editBody(body){
 
 
 export function updateStatus(draft, status) {
-    if (Object.keys(draft).length === 0 && draft.constructor === Object) {
-        return {
-            type: "UPDATE_STATUS",
-            payload: {}
-        }
-    } else {
         return {
             type: "UPDATE_STATUS",
             payload: {
@@ -40,5 +34,5 @@ export function updateStatus(draft, status) {
                 status
             }
         }
-    }
+
 }

@@ -35,13 +35,15 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft,update
              item.checked=false
          })
     }
+
     const handleClick = (draft) => {
         if (Object.keys(draft).length === 0 && draft.constructor === Object) {
             return;
         } else {
             updateMessage(draft);
-            uncheck();
-            clearDraft();
+            /*commented code to uncheck box and cleardraft when accepting updates*/
+            // uncheck();
+            // clearDraft();
         }
     };
 
@@ -85,6 +87,7 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft,update
                     <TextField
                         label={"Subject"}
                         variant={"outlined"}
+                        disabled={draft.id?false:true}
                         type="text"
                                value={draft.subject || ''}
                                onChange= {(event) =>
@@ -102,6 +105,7 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft,update
                             rows="10"
                             variant={"outlined"}
                             label={"Body"}
+                            disabled={draft.id?false:true}
                             value={draft.body || ''}
                             onChange= {(event) =>
                                 editBody(event.target.value)

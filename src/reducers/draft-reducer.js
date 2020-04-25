@@ -1,13 +1,6 @@
 
 const initialState = {
-    id: 1,
-    date: "4/6/20",
-    entity: "student",
-    entityName: "John",
-    mailId: 528,
-    subject: 'Hi Ted',
-    body: 'I went to the zoo. --John',
-    status: 'new'
+
 };
 export default function (state=initialState, action) {
     switch (action.type) {
