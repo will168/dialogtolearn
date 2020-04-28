@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {editBody, clearDraft, editSubject, updateStatus} from "../actions/draft-action";
+import {editBody, clearDraft, editSubject, openDraft, saveInitialDraft, updateStatus} from "../actions/draft-action";
 import {updateMessage} from "../actions/messageActions"
 
 const useStyles = makeStyles({
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     }
 });
 
-const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft,updateStatus, editBody }) => {
+const MonitorContainer = ({ draft, editSubject, openDraft, initialDraft, updateMessage, saveInitialDraft ,updateStatus, editBody }) => {
     const classes = useStyles();
     function uncheck() {
          document.getElementsByName("btn").forEach((item)=>{
@@ -41,18 +41,18 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft,update
             return;
         } else {
             updateMessage(draft);
+            saveInitialDraft(draft)
             /*commented code to uncheck box and cleardraft when accepting updates*/
             // uncheck();
             // clearDraft();
         }
     };
 
-    const cancelForm = () => {
+    const cancelForm = (draft) => {
         if (Object.keys(draft).length === 0 && draft.constructor === Object) {
             return;
         } else {
-            uncheck();
-            clearDraft();
+            openDraft(draft)
         }
     }
 
@@ -121,7 +121,7 @@ const MonitorContainer = ({ draft, editSubject, updateMessage, clearDraft,update
 
                     >Accept Edits</Button>
                     <Button variant={"contained"}
-                    onClick = {()=>cancelForm()}
+                    onClick = {()=>cancelForm(initialDraft)}
                     >Cancel</Button>
 
                 </ButtonGroup>
@@ -141,8 +141,10 @@ const mapDispatchToProps = dispatch => {
         editSubject: (subject) =>
             (dispatch(editSubject(subject))),
         editBody: (body) => (dispatch(editBody(body))),
-        clearDraft: () => (dispatch(clearDraft())),
-        updateStatus: (draft, status) => (dispatch(updateStatus(draft, status)))
+        clearDraft: (draft) => (dispatch(clearDraft(draft))),
+        openDraft: (draft) => (dispatch(openDraft(draft))),
+        updateStatus: (draft, status) => (dispatch(updateStatus(draft, status))),
+        saveInitialDraft: (initialDraft) => (dispatch(saveInitialDraft(initialDraft)))
     }
 };
 
@@ -150,7 +152,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = (state) => {
     return {
         records: state.records,
-        draft: state.draft
+        draft: state.draft,
+        initialDraft: state.initialDraft
     };
 };
 

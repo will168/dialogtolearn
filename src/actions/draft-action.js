@@ -4,6 +4,12 @@ export function openDraft(draft) {
         payload: draft
     };
 }
+export function saveInitialDraft (draft) {
+    return {
+        type: "SAVE_INITIAL_DRAFT",
+        payload: draft
+    }
+}
 export function clearDraft() {
     return {
         type: "CLEAR_DRAFT",

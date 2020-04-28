@@ -4,7 +4,7 @@ import {showRecord} from "../actions/messageActions";
 import InfoCard from "./InfoCard";
 import {makeStyles} from "@material-ui/core/styles";
 import {openDraft} from "../actions/draft-action";
-
+import {saveInitialDraft} from "../actions/draft-action";
 
 
 const useStyles = makeStyles({
@@ -35,7 +35,8 @@ const Cell = ({
                   date,
                   entity,
                   entityName,
-                  recordId
+                  recordId,
+                  saveInitialDraft
 }) => {
   const [hovered, setHovered] = useState(false);
 
@@ -60,8 +61,11 @@ const Cell = ({
       entity: entity,
       entityName: entityName,
       date: date
-  }
-console.log(statusColor)
+  };
+    const handleClick = (draft) => {
+        openDraft(draft);
+        saveInitialDraft(draft);
+    };
   return (
     <div className={classes.div}>
       <input type={"radio"} className={classes.btn}
@@ -69,7 +73,7 @@ console.log(statusColor)
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
               style={{ backgroundColor: {statusColor} }}
-              onClick={() => openDraft(refObj)}
+              onClick={() => handleClick(refObj)}
               name={'btn'}
               data-flag={0}
       />
@@ -85,7 +89,8 @@ console.log(statusColor)
 const mapDispatchToProps = dispatch => {
   return {
     showRecord: (refObj) => (dispatch(showRecord(refObj))),
-    openDraft: (refObj) => (dispatch(openDraft(refObj)))
+    openDraft: (refObj) => (dispatch(openDraft(refObj))),
+    saveInitialDraft: (refObj) => (dispatch(saveInitialDraft(refObj)))
     }
 };
 
