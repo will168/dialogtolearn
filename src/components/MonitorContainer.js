@@ -10,7 +10,12 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {editBody, clearDraft, editSubject, openDraft, saveInitialDraft, updateStatus} from "../actions/draft-action";
+import {editBody,
+        clearDraft,
+        editSubject,
+        openDraft,
+        saveInitialDraft,
+        updateStatus} from "../actions/draft-action";
 import {updateMessage} from "../actions/messageActions"
 
 
@@ -48,7 +53,8 @@ const MonitorContainer = ({ draft, editSubject, openDraft, initialDraft, updateM
             return;
         } else {
             updateMessage(draft);
-            saveInitialDraft(draft)
+            updateStatus(draft, draft.status);
+            saveInitialDraft(draft);
             disable()
         }
     };

@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     tableCell: {
         paddingBottom: '40px',
 
+
     },
     volunteers: {
         color: red[200]
@@ -63,11 +64,11 @@ const Sheet= ({ data }) => {
                                                 Object.entries(stud.emails).map(
                                                     ([k , mails]) => {
                                             return (<>
-                                                <TableCell size={'medium'} key={k} className={classes.tableCell}>
+                                                <TableCell size={'medium'} key={k} >
                                                     {mails.map(
                                                             (mail)=>(
 
-                                                        <TableCell style={{padding: '20px'}}>
+                                                        <td style={{padding: '20px'}}>
                                                                     <Cell
                                                                         recordId = {item.id}
                                                                         entity="student"
@@ -76,7 +77,7 @@ const Sheet= ({ data }) => {
                                                                         status={mail.status}
                                                                         record = {mail}
                                                                     />
-                                                        </TableCell>
+                                                         </td>
 
                                                         ))}
                                                 </TableCell>
@@ -92,10 +93,10 @@ const Sheet= ({ data }) => {
                                                         Object.entries(vol.emails).map(
                                                             ([k , mails]) => (
                                                                 <>
-                                                                    <TableCell key={k} className={classes.tableCell}>
+                                                                    <TableCell key={k}>
                                                                         {Object.values(mails).map(
                                                                             (mail)=>(
-                                                                            <TableCell style={{padding: '20px'}}>
+                                                                            <td style={{padding: '20px'}}>
                                                                             <Cell
                                                                                 recordId = {item.id}
                                                                                 entity="volunteers"
@@ -104,7 +105,7 @@ const Sheet= ({ data }) => {
                                                                                 status={mail.status}
                                                                                 record={mail}
                                                                             />
-                                                                            </TableCell>
+                                                                            </td>
 
                                                                             ))}
                                                                     </TableCell>
