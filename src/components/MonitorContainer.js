@@ -1,18 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import {disable} from "./App";
 
 import {
     Button,
     ButtonGroup,
     Container,
     TextField,
-
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import {editBody, clearDraft, editSubject, openDraft, saveInitialDraft, updateStatus} from "../actions/draft-action";
 import {updateMessage} from "../actions/messageActions"
+
 
 const useStyles = makeStyles({
     div: {
@@ -20,21 +20,28 @@ const useStyles = makeStyles({
     },
     ButtonGroup: {
         '& Button': {
-            marginRight: 10 + 'px',
-            marginBottom: 10 + 'px',
+            marginRight: '10px',
+            marginBottom: '10px',
 
         },
+    },
+    btn: {
 
-    }
-});
+        "background-color": "#e0e0e0",
+        "outline": "none",
+        borderRadius: '5%',
+        padding: '0.5em',
+        margin: '10',
+        display: 'inline-block',
+        '-webkit-appearance': 'none',
+        "font-size":"16px",
+
+}});
 
 const MonitorContainer = ({ draft, editSubject, openDraft, initialDraft, updateMessage, saveInitialDraft ,updateStatus, editBody }) => {
+
     const classes = useStyles();
-    function uncheck() {
-         document.getElementsByName("btn").forEach((item)=>{
-             item.checked=false
-         })
-    }
+
 
     const handleClick = (draft) => {
         if (Object.keys(draft).length === 0 && draft.constructor === Object) {
@@ -42,17 +49,26 @@ const MonitorContainer = ({ draft, editSubject, openDraft, initialDraft, updateM
         } else {
             updateMessage(draft);
             saveInitialDraft(draft)
-            /*commented code to uncheck box and cleardraft when accepting updates*/
-            // uncheck();
-            // clearDraft();
+            disable()
         }
     };
+
+    function changeBody(event) {
+        editBody(event.target.value)
+        document.getElementById("cancel").removeAttribute("disabled")
+    }
+
+    function changeSubject(event){
+        editSubject(event.target.value)
+        document.getElementById("cancel").removeAttribute("disabled")
+    }
 
     const cancelForm = (draft) => {
         if (Object.keys(draft).length === 0 && draft.constructor === Object) {
             return;
         } else {
             openDraft(draft)
+            disable()
         }
     }
 
@@ -90,9 +106,8 @@ const MonitorContainer = ({ draft, editSubject, openDraft, initialDraft, updateM
                         disabled={draft.id?false:true}
                         type="text"
                                value={draft.subject || ''}
-                               onChange= {(event) =>
-                                   editSubject(event.target.value)
-                               }
+                               onChange= {changeSubject}
+
                         data-flag = {0}
 
                     />
@@ -107,25 +122,21 @@ const MonitorContainer = ({ draft, editSubject, openDraft, initialDraft, updateM
                             label={"Body"}
                             disabled={draft.id?false:true}
                             value={draft.body || ''}
-                            onChange= {(event) =>
-                                editBody(event.target.value)
-                            }
+                            onChange= {changeBody}
                             data-flag = {0}
 
                 />
                 <br/>
-                <ButtonGroup className={classes.ButtonGroup}>
-                    <Button variant={"contained"}
-                            type="submit"
-                            onClick={()=>handleClick(draft)}
+                <br/>
+                <ButtonGroup  className={classes.ButtonGroup}>
+                    <button className={classes.btn} onClick={()=>handleClick(draft)}>Accept Edits</button>
+                    <button
+                             id={"cancel"}
+                             className = {classes.btn}
+                             onClick = {()=>cancelForm(initialDraft)}
 
-                    >Accept Edits</Button>
-                    <Button variant={"contained"}
-                    onClick = {()=>cancelForm(initialDraft)}
-                    >Cancel</Button>
-
+                    >Cancel</button>
                 </ButtonGroup>
-
             </Container>
 
         </div>

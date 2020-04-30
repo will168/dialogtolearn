@@ -5,6 +5,7 @@ import InfoCard from "./InfoCard";
 import {makeStyles} from "@material-ui/core/styles";
 import {openDraft} from "../actions/draft-action";
 import {saveInitialDraft} from "../actions/draft-action";
+import {disable} from "./App";
 
 
 const useStyles = makeStyles({
@@ -17,6 +18,7 @@ const useStyles = makeStyles({
         // borderRadius: '50%',
         padding: '0.5em',
         '-webkit-appearance': 'none',
+        display: 'inline-block',
         minWidth: '25px',
         minHeight: '25px',
         maxHeight: '25px',
@@ -65,6 +67,7 @@ const Cell = ({
     const handleClick = (draft) => {
         openDraft(draft);
         saveInitialDraft(draft);
+        disable();
     };
   return (
     <div className={classes.div}>
