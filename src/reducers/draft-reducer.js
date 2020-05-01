@@ -18,10 +18,11 @@ export default function (state=initialState, action) {
                 ...state,
                 body: action.payload
             };
-
         case "UPDATE_STATUS":
-            return {...state,
-                status:action.payload.status}
+            return {
+                ...state,
+                status: action.payload
+            };
         case "CLEAR_DRAFT":
             return state
         default:

@@ -35,10 +35,7 @@ export function editBody(body){
 export function updateStatus(draft, status) {
         return {
             type: "UPDATE_STATUS",
-            payload: {
-                draft,
-                status
-            }
+            payload: status
         }
 
 }
