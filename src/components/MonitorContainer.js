@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {disable} from "./App";
+import {disable, enable} from "./App";
 
 import {
     Button,
@@ -61,12 +61,13 @@ const MonitorContainer = ({ draft, editSubject, openDraft, initialDraft, updateM
 
     function changeBody(event) {
         editBody(event.target.value)
-        document.getElementById("cancel").removeAttribute("disabled")
+        enable();
+
     }
 
     function changeSubject(event){
         editSubject(event.target.value)
-        document.getElementById("cancel").removeAttribute("disabled")
+        enable();
     }
 
     const cancelForm = (draft) => {
@@ -83,6 +84,7 @@ const MonitorContainer = ({ draft, editSubject, openDraft, initialDraft, updateM
             return;
         } else {
             updateStatus(draft, status)
+            enable();
         }
     }
     return (

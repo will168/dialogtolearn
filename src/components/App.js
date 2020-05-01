@@ -6,6 +6,10 @@ import Grid from "@material-ui/core/Grid";
 export function disable() {
     document.getElementById("cancel").setAttribute("disabled", "disabled")
 }
+
+export function enable() {
+    document.getElementById("cancel").removeAttribute("disabled")
+}
 export default function App() {
 
     useEffect(() => {
