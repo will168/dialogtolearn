@@ -13,7 +13,9 @@ import Cell from "./Cell";
 
 
 const useStyles = makeStyles({
-
+    table: {
+        maxWidth: 750,
+    },
     volRow: {
         background: grey[100]
     },
@@ -42,7 +44,7 @@ const Sheet= ({ data }) => {
 
     return (
         <TableContainer>
-            <Table>
+             <Table className={classes.table} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow className={classes.headRow}>
                         <TableCell>Dates</TableCell>
@@ -68,7 +70,7 @@ const Sheet= ({ data }) => {
                                                     {mails.map(
                                                             (mail)=>(
 
-                                                        <td style={{padding: '20px'}}>
+                                                        <td style={{padding: '0px'}}>
                                                                     <Cell
                                                                         recordId = {item.id}
                                                                         entity="student"
@@ -96,7 +98,7 @@ const Sheet= ({ data }) => {
                                                                     <TableCell key={k}>
                                                                         {Object.values(mails).map(
                                                                             (mail)=>(
-                                                                            <td style={{padding: '20px'}}>
+                                                                            <td style={{padding: '0px'}}>
                                                                             <Cell
                                                                                 recordId = {item.id}
                                                                                 entity="volunteers"
